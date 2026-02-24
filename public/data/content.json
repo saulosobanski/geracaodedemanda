@@ -5,6 +5,7 @@
       "slug": "web-fundamentals",
       "title": "Web Fundamentals",
       "description": "Learn the core technologies that power the modern web, from HTML structure to CSS styling and JavaScript interactivity.",
+      "icon": "globe",
       "image": "",
       "order": 1,
       "chapters": [
@@ -57,6 +58,7 @@
       "slug": "javascript-essentials",
       "title": "JavaScript Essentials",
       "description": "Master the programming language of the web, from variables and functions to DOM manipulation and async programming.",
+      "icon": "code",
       "image": "",
       "order": 2,
       "chapters": [

@@ -950,3 +950,57 @@ body:not([data-theme="dark"]) .icon-moon { display: block; }
 .drag-handle:active {
     cursor: grabbing;
 }
+
+.youtube-embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.youtube-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-md);
+}
+
+.icon-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: var(--spacing-sm) 0;
+}
+
+.icon-option {
+    cursor: pointer;
+}
+
+.icon-option input[type="radio"] {
+    display: none;
+}
+
+.icon-option-inner {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid hsl(var(--color-border));
+    border-radius: var(--radius-sm);
+    color: hsl(var(--color-text-secondary));
+    transition: all var(--transition);
+}
+
+.icon-option:hover .icon-option-inner {
+    border-color: hsl(var(--color-primary) / 0.5);
+    color: hsl(var(--color-primary));
+}
+
+.icon-option input[type="radio"]:checked + .icon-option-inner {
+    border-color: hsl(var(--color-primary));
+    background: hsl(var(--color-primary-light));
+    color: hsl(var(--color-primary));
+}

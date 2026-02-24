@@ -18,18 +18,18 @@ var Admin = (function () {
 
         var html = '<div class="admin-container">';
         html += '<div class="admin-header">';
-        html += '<h1>Content Administration</h1>';
-        html += '<div style="display:flex;gap:8px">';
-        html += '<button class="btn btn-secondary" onclick="Admin.exportData()">Export JSON</button>';
-        html += '<label class="btn btn-secondary" style="cursor:pointer">Import JSON<input type="file" accept=".json" onchange="Admin.importData(event)" hidden></label>';
-        html += '<button class="btn btn-primary" onclick="Admin.addTopic()">+ Add Topic</button>';
+        html += '<h1>Administracao de Conteudo</h1>';
+        html += '<div style="display:flex;gap:8px;flex-wrap:wrap">';
+        html += '<button class="btn btn-secondary" onclick="Admin.exportData()">Exportar JSON</button>';
+        html += '<label class="btn btn-secondary" style="cursor:pointer">Importar JSON<input type="file" accept=".json" onchange="Admin.importData(event)" hidden></label>';
+        html += '<button class="btn btn-primary" onclick="Admin.addTopic()">+ Novo Topico</button>';
         html += '</div>';
         html += '</div>';
 
         if (topics.length === 0) {
             html += '<div class="empty-state">';
-            html += '<h2>No topics yet</h2>';
-            html += '<p>Create your first topic to get started.</p>';
+            html += '<h2>Nenhum topico ainda</h2>';
+            html += '<p>Crie seu primeiro topico para comecar.</p>';
             html += '</div>';
         } else {
             for (var t = 0; t < topics.length; t++) {
@@ -43,17 +43,21 @@ var Admin = (function () {
     }
 
     function renderTopicAdmin(topic) {
+        var iconName = topic.icon || 'book';
         var html = '<div class="chapter-card" style="margin-bottom:16px">';
         html += '<div class="chapter-header" style="display:flex;justify-content:space-between;align-items:flex-start">';
+        html += '<div style="display:flex;gap:12px;align-items:flex-start">';
+        html += '<div class="card-icon" style="flex-shrink:0;margin-bottom:0">' + App.getIconSvg(iconName) + '</div>';
         html += '<div>';
         html += '<h2>' + escapeHtml(topic.title) + '</h2>';
         html += '<p>' + escapeHtml(topic.description) + '</p>';
-        html += '<span style="font-size:0.8rem;color:hsl(var(--color-text-muted))">Slug: ' + topic.slug + ' &middot; Order: ' + topic.order + '</span>';
+        html += '<span style="font-size:0.8rem;color:hsl(var(--color-text-muted))">Slug: ' + topic.slug + ' &middot; Ordem: ' + topic.order + ' &middot; Icone: ' + iconName + '</span>';
+        html += '</div>';
         html += '</div>';
         html += '<div class="item-actions">';
-        html += '<button class="btn btn-sm btn-secondary" onclick="Admin.editTopic(\'' + topic.id + '\')">Edit</button>';
-        html += '<button class="btn btn-sm btn-primary" onclick="Admin.addChapter(\'' + topic.id + '\')">+ Chapter</button>';
-        html += '<button class="btn btn-sm btn-danger" onclick="Admin.deleteTopic(\'' + topic.id + '\')">Delete</button>';
+        html += '<button class="btn btn-sm btn-secondary" onclick="Admin.editTopic(\'' + topic.id + '\')">Editar</button>';
+        html += '<button class="btn btn-sm btn-primary" onclick="Admin.addChapter(\'' + topic.id + '\')">+ Capitulo</button>';
+        html += '<button class="btn btn-sm btn-danger" onclick="Admin.deleteTopic(\'' + topic.id + '\')">Excluir</button>';
         html += '</div>';
         html += '</div>';
 
@@ -66,26 +70,27 @@ var Admin = (function () {
                 html += '<div class="item-link" style="cursor:default;background:hsl(var(--color-bg-secondary))">';
                 html += '<div class="item-info">';
                 html += '<div class="item-title" style="font-weight:700">' + escapeHtml(ch.title) + '</div>';
-                html += '<div class="item-type">' + escapeHtml(ch.description) + ' &middot; ' + (ch.items ? ch.items.length : 0) + ' items</div>';
+                html += '<div class="item-type">' + escapeHtml(ch.description) + ' &middot; ' + (ch.items ? ch.items.length : 0) + ' ite' + ((ch.items ? ch.items.length : 0) !== 1 ? 'ns' : 'm') + '</div>';
                 html += '</div>';
                 html += '<div class="item-actions">';
-                html += '<button class="btn btn-sm btn-secondary" onclick="Admin.editChapter(\'' + topic.id + '\',\'' + ch.id + '\')">Edit</button>';
+                html += '<button class="btn btn-sm btn-secondary" onclick="Admin.editChapter(\'' + topic.id + '\',\'' + ch.id + '\')">Editar</button>';
                 html += '<button class="btn btn-sm btn-primary" onclick="Admin.addItem(\'' + topic.id + '\',\'' + ch.id + '\')">+ Item</button>';
-                html += '<button class="btn btn-sm btn-danger" onclick="Admin.deleteChapter(\'' + topic.id + '\',\'' + ch.id + '\')">Delete</button>';
+                html += '<button class="btn btn-sm btn-danger" onclick="Admin.deleteChapter(\'' + topic.id + '\',\'' + ch.id + '\')">Excluir</button>';
                 html += '</div>';
                 html += '</div>';
 
                 var items = (ch.items || []).slice().sort(function (a, b) { return a.order - b.order; });
                 for (var i = 0; i < items.length; i++) {
                     var item = items[i];
+                    var typeLabel = { text: 'Texto', video: 'Video', audio: 'Audio', image: 'Imagem' }[item.type] || item.type;
                     html += '<div class="item-link" style="padding-left:48px;cursor:default">';
                     html += '<div class="item-info">';
                     html += '<div class="item-title">' + escapeHtml(item.title) + '</div>';
-                    html += '<div class="item-type">' + item.type + ' &middot; Order: ' + item.order + '</div>';
+                    html += '<div class="item-type">' + typeLabel + ' &middot; Ordem: ' + item.order + '</div>';
                     html += '</div>';
                     html += '<div class="item-actions">';
-                    html += '<button class="btn btn-sm btn-secondary" onclick="Admin.editItem(\'' + topic.id + '\',\'' + ch.id + '\',\'' + item.id + '\')">Edit</button>';
-                    html += '<button class="btn btn-sm btn-danger" onclick="Admin.deleteItem(\'' + topic.id + '\',\'' + ch.id + '\',\'' + item.id + '\')">Delete</button>';
+                    html += '<button class="btn btn-sm btn-secondary" onclick="Admin.editItem(\'' + topic.id + '\',\'' + ch.id + '\',\'' + item.id + '\')">Editar</button>';
+                    html += '<button class="btn btn-sm btn-danger" onclick="Admin.deleteItem(\'' + topic.id + '\',\'' + ch.id + '\',\'' + item.id + '\')">Excluir</button>';
                     html += '</div>';
                     html += '</div>';
                 }
@@ -104,8 +109,8 @@ var Admin = (function () {
         overlay.innerHTML = '<div class="modal"><h2>' + escapeHtml(title) + '</h2>' +
             '<form id="admin-modal-form">' + formHtml +
             '<div class="form-actions">' +
-            '<button type="submit" class="btn btn-primary">Save</button>' +
-            '<button type="button" class="btn btn-secondary" onclick="Admin.closeModal()">Cancel</button>' +
+            '<button type="submit" class="btn btn-primary">Salvar</button>' +
+            '<button type="button" class="btn btn-secondary" onclick="Admin.closeModal()">Cancelar</button>' +
             '</div></form></div>';
 
         document.body.appendChild(overlay);
@@ -138,14 +143,30 @@ var Admin = (function () {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(content)
         }).then(function (res) {
-            if (!res.ok) throw new Error('Save failed');
-            showToast('Saved successfully');
+            if (!res.ok) throw new Error('Falha ao salvar');
+            showToast('Salvo com sucesso');
             return ContentManager.refreshData();
         }).then(function () {
             App.render();
         }).catch(function (err) {
-            showToast('Error: ' + err.message, true);
+            showToast('Erro: ' + err.message, true);
         });
+    }
+
+    function buildIconPicker(selectedIcon) {
+        var icons = Object.keys(App.TOPIC_ICONS);
+        var html = '<div class="form-group"><label>Icone</label>';
+        html += '<div class="icon-picker">';
+        for (var i = 0; i < icons.length; i++) {
+            var name = icons[i];
+            var isSelected = name === (selectedIcon || 'book');
+            html += '<label class="icon-option' + (isSelected ? ' selected' : '') + '">';
+            html += '<input type="radio" name="icon" value="' + name + '"' + (isSelected ? ' checked' : '') + '>';
+            html += '<div class="icon-option-inner" title="' + name + '">' + App.getIconSvg(name) + '</div>';
+            html += '</label>';
+        }
+        html += '</div></div>';
+        return html;
     }
 
     function addTopic() {
@@ -154,17 +175,19 @@ var Admin = (function () {
         for (var i = 0; i < content.topics.length; i++) {
             if (content.topics[i].order > maxOrder) maxOrder = content.topics[i].order;
         }
-        showModal('Add Topic',
-            formField('Title', 'title', 'text', '') +
-            formField('Description', 'description', 'textarea', '') +
-            formField('Image URL (optional)', 'image', 'text', '') +
-            formField('Order', 'order', 'number', maxOrder + 1),
+        showModal('Novo Topico',
+            formField('Titulo', 'title', 'text', '') +
+            formField('Descricao', 'description', 'textarea', '') +
+            buildIconPicker('book') +
+            formField('URL da Imagem (opcional)', 'image', 'text', '') +
+            formField('Ordem', 'order', 'number', maxOrder + 1),
             function (data) {
                 content.topics.push({
                     id: generateId(),
                     slug: slugify(data.title),
                     title: data.title,
                     description: data.description,
+                    icon: data.icon || 'book',
                     image: data.image || '',
                     order: parseInt(data.order) || maxOrder + 1,
                     chapters: []
@@ -180,16 +203,18 @@ var Admin = (function () {
         var topic = findById(content.topics, topicId);
         if (!topic) return;
 
-        showModal('Edit Topic',
-            formField('Title', 'title', 'text', topic.title) +
+        showModal('Editar Topico',
+            formField('Titulo', 'title', 'text', topic.title) +
             formField('Slug', 'slug', 'text', topic.slug) +
-            formField('Description', 'description', 'textarea', topic.description) +
-            formField('Image URL', 'image', 'text', topic.image) +
-            formField('Order', 'order', 'number', topic.order),
+            formField('Descricao', 'description', 'textarea', topic.description) +
+            buildIconPicker(topic.icon || 'book') +
+            formField('URL da Imagem', 'image', 'text', topic.image) +
+            formField('Ordem', 'order', 'number', topic.order),
             function (data) {
                 topic.title = data.title;
                 topic.slug = data.slug || slugify(data.title);
                 topic.description = data.description;
+                topic.icon = data.icon || 'book';
                 topic.image = data.image || '';
                 topic.order = parseInt(data.order) || 1;
                 ContentManager.setContent(content);
@@ -199,7 +224,7 @@ var Admin = (function () {
     }
 
     function deleteTopic(topicId) {
-        if (!confirm('Delete this topic and all its chapters and items?')) return;
+        if (!confirm('Excluir este topico e todos os seus capitulos e itens?')) return;
         var content = ContentManager.getContent();
         content.topics = content.topics.filter(function (t) { return t.id !== topicId; });
         ContentManager.setContent(content);
@@ -217,10 +242,10 @@ var Admin = (function () {
             if (topic.chapters[i].order > maxOrder) maxOrder = topic.chapters[i].order;
         }
 
-        showModal('Add Chapter to "' + topic.title + '"',
-            formField('Title', 'title', 'text', '') +
-            formField('Description', 'description', 'textarea', '') +
-            formField('Order', 'order', 'number', maxOrder + 1),
+        showModal('Novo Capitulo em "' + topic.title + '"',
+            formField('Titulo', 'title', 'text', '') +
+            formField('Descricao', 'description', 'textarea', '') +
+            formField('Ordem', 'order', 'number', maxOrder + 1),
             function (data) {
                 topic.chapters.push({
                     id: generateId(),
@@ -243,11 +268,11 @@ var Admin = (function () {
         var chapter = findById(topic.chapters, chapterId);
         if (!chapter) return;
 
-        showModal('Edit Chapter',
-            formField('Title', 'title', 'text', chapter.title) +
+        showModal('Editar Capitulo',
+            formField('Titulo', 'title', 'text', chapter.title) +
             formField('Slug', 'slug', 'text', chapter.slug) +
-            formField('Description', 'description', 'textarea', chapter.description) +
-            formField('Order', 'order', 'number', chapter.order),
+            formField('Descricao', 'description', 'textarea', chapter.description) +
+            formField('Ordem', 'order', 'number', chapter.order),
             function (data) {
                 chapter.title = data.title;
                 chapter.slug = data.slug || slugify(data.title);
@@ -260,7 +285,7 @@ var Admin = (function () {
     }
 
     function deleteChapter(topicId, chapterId) {
-        if (!confirm('Delete this chapter and all its items?')) return;
+        if (!confirm('Excluir este capitulo e todos os seus itens?')) return;
         var content = ContentManager.getContent();
         var topic = findById(content.topics, topicId);
         if (!topic) return;
@@ -282,16 +307,16 @@ var Admin = (function () {
             if (chapter.items[i].order > maxOrder) maxOrder = chapter.items[i].order;
         }
 
-        showModal('Add Item to "' + chapter.title + '"',
-            formField('Title', 'title', 'text', '') +
-            '<div class="form-group"><label>Type</label><select name="type">' +
-            '<option value="text">Text (Markdown)</option>' +
-            '<option value="video">Video</option>' +
-            '<option value="audio">Audio</option>' +
-            '<option value="image">Image</option>' +
+        showModal('Novo Item em "' + chapter.title + '"',
+            formField('Titulo', 'title', 'text', '') +
+            '<div class="form-group"><label>Tipo</label><select name="type">' +
+            '<option value="text">Texto (Markdown)</option>' +
+            '<option value="video">Video (URL ou YouTube)</option>' +
+            '<option value="audio">Audio (URL ou YouTube)</option>' +
+            '<option value="image">Imagem</option>' +
             '</select></div>' +
-            formField('Content (Markdown for text, URL for media)', 'content', 'textarea', '') +
-            formField('Order', 'order', 'number', maxOrder + 1),
+            formField('Conteudo (Markdown para texto, URL para midia)', 'content', 'textarea', '') +
+            formField('Ordem', 'order', 'number', maxOrder + 1),
             function (data) {
                 chapter.items.push({
                     id: generateId(),
@@ -316,17 +341,17 @@ var Admin = (function () {
         var item = findById(chapter.items, itemId);
         if (!item) return;
 
-        showModal('Edit Item',
-            formField('Title', 'title', 'text', item.title) +
+        showModal('Editar Item',
+            formField('Titulo', 'title', 'text', item.title) +
             formField('Slug', 'slug', 'text', item.slug) +
-            '<div class="form-group"><label>Type</label><select name="type">' +
-            '<option value="text"' + (item.type === 'text' ? ' selected' : '') + '>Text (Markdown)</option>' +
-            '<option value="video"' + (item.type === 'video' ? ' selected' : '') + '>Video</option>' +
-            '<option value="audio"' + (item.type === 'audio' ? ' selected' : '') + '>Audio</option>' +
-            '<option value="image"' + (item.type === 'image' ? ' selected' : '') + '>Image</option>' +
+            '<div class="form-group"><label>Tipo</label><select name="type">' +
+            '<option value="text"' + (item.type === 'text' ? ' selected' : '') + '>Texto (Markdown)</option>' +
+            '<option value="video"' + (item.type === 'video' ? ' selected' : '') + '>Video (URL ou YouTube)</option>' +
+            '<option value="audio"' + (item.type === 'audio' ? ' selected' : '') + '>Audio (URL ou YouTube)</option>' +
+            '<option value="image"' + (item.type === 'image' ? ' selected' : '') + '>Imagem</option>' +
             '</select></div>' +
-            formField('Content', 'content', 'textarea', item.content) +
-            formField('Order', 'order', 'number', item.order),
+            formField('Conteudo', 'content', 'textarea', item.content) +
+            formField('Ordem', 'order', 'number', item.order),
             function (data) {
                 item.title = data.title;
                 item.slug = data.slug || slugify(data.title);
@@ -340,7 +365,7 @@ var Admin = (function () {
     }
 
     function deleteItem(topicId, chapterId, itemId) {
-        if (!confirm('Delete this item?')) return;
+        if (!confirm('Excluir este item?')) return;
         var content = ContentManager.getContent();
         var topic = findById(content.topics, topicId);
         if (!topic) return;
@@ -360,7 +385,7 @@ var Admin = (function () {
         a.download = 'content.json';
         a.click();
         URL.revokeObjectURL(url);
-        showToast('Content exported');
+        showToast('Conteudo exportado');
     }
 
     function importData(event) {
@@ -372,13 +397,13 @@ var Admin = (function () {
             try {
                 var data = JSON.parse(e.target.result);
                 if (!data.topics || !Array.isArray(data.topics)) {
-                    throw new Error('Invalid content format');
+                    throw new Error('Formato de conteudo invalido');
                 }
                 ContentManager.setContent(data);
                 saveAndRefresh();
-                showToast('Content imported successfully');
+                showToast('Conteudo importado com sucesso');
             } catch (err) {
-                showToast('Import error: ' + err.message, true);
+                showToast('Erro na importacao: ' + err.message, true);
             }
         };
         reader.readAsText(file);
