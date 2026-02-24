@@ -1,0 +1,91 @@
+{
+  "topics": [
+    {
+      "id": "t1",
+      "slug": "web-fundamentals",
+      "title": "Web Fundamentals",
+      "description": "Learn the core technologies that power the modern web, from HTML structure to CSS styling and JavaScript interactivity.",
+      "image": "",
+      "order": 1,
+      "chapters": [
+        {
+          "id": "c1",
+          "slug": "html-basics",
+          "title": "HTML Basics",
+          "description": "Understanding the building blocks of web pages with semantic HTML elements.",
+          "order": 1,
+          "items": [
+            {
+              "id": "i1",
+              "slug": "introduction-to-html",
+              "title": "Introduction to HTML",
+              "type": "text",
+              "content": "# Introduction to HTML\n\nHTML (HyperText Markup Language) is the standard markup language for creating web pages. It describes the structure of a web page using a series of elements.\n\n## What You'll Learn\n\n- Basic HTML document structure\n- Common HTML elements\n- Semantic markup best practices\n\n## The Basic Structure\n\nEvery HTML document follows this basic structure:\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My Page</title>\n</head>\n<body>\n    <h1>Hello, World!</h1>\n</body>\n</html>\n```\n\nThe `<!DOCTYPE html>` declaration tells the browser this is an HTML5 document. The `<html>` element is the root of the page, and `<head>` contains metadata while `<body>` contains the visible content.",
+              "order": 1
+            },
+            {
+              "id": "i2",
+              "slug": "html-elements",
+              "title": "Common HTML Elements",
+              "type": "text",
+              "content": "# Common HTML Elements\n\nHTML provides a rich set of elements for structuring content.\n\n## Headings\n\nHTML offers six levels of headings, from `<h1>` (most important) to `<h6>` (least important).\n\n## Paragraphs and Text\n\nUse `<p>` for paragraphs, `<strong>` for bold emphasis, and `<em>` for italic emphasis.\n\n## Lists\n\n- **Ordered lists** (`<ol>`) for numbered items\n- **Unordered lists** (`<ul>`) for bullet points\n- **Description lists** (`<dl>`) for term-definition pairs\n\n## Links and Images\n\nLinks use the `<a>` element with an `href` attribute:\n\n```html\n<a href=\"https://example.com\">Visit Example</a>\n```\n\nImages use the self-closing `<img>` element:\n\n```html\n<img src=\"photo.jpg\" alt=\"A description of the photo\">\n```",
+              "order": 2
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "slug": "css-styling",
+          "title": "CSS Styling",
+          "description": "Learn how to style web pages with Cascading Style Sheets.",
+          "order": 2,
+          "items": [
+            {
+              "id": "i3",
+              "slug": "css-fundamentals",
+              "title": "CSS Fundamentals",
+              "type": "text",
+              "content": "# CSS Fundamentals\n\nCSS (Cascading Style Sheets) controls the visual presentation of HTML elements.\n\n## Selectors\n\nCSS selectors target HTML elements for styling:\n\n```css\n/* Element selector */\np { color: blue; }\n\n/* Class selector */\n.highlight { background: yellow; }\n\n/* ID selector */\n#header { font-size: 24px; }\n```\n\n## The Box Model\n\nEvery HTML element is a box consisting of:\n1. **Content** — the actual content\n2. **Padding** — space around the content\n3. **Border** — a border around the padding\n4. **Margin** — space outside the border\n\n## Colors and Typography\n\nCSS offers multiple ways to define colors: named colors, hex values, RGB, and HSL.\n\n```css\nbody {\n    font-family: 'Georgia', serif;\n    color: #333;\n    line-height: 1.6;\n}\n```",
+              "order": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "slug": "javascript-essentials",
+      "title": "JavaScript Essentials",
+      "description": "Master the programming language of the web, from variables and functions to DOM manipulation and async programming.",
+      "image": "",
+      "order": 2,
+      "chapters": [
+        {
+          "id": "c3",
+          "slug": "getting-started-with-js",
+          "title": "Getting Started with JavaScript",
+          "description": "Your first steps into JavaScript programming.",
+          "order": 1,
+          "items": [
+            {
+              "id": "i4",
+              "slug": "variables-and-types",
+              "title": "Variables and Data Types",
+              "type": "text",
+              "content": "# Variables and Data Types\n\nJavaScript variables are containers for storing data values.\n\n## Declaring Variables\n\n```javascript\nconst name = 'Alice';    // Cannot be reassigned\nlet age = 25;            // Can be reassigned\n```\n\n## Data Types\n\nJavaScript has several primitive data types:\n\n| Type | Example | Description |\n|------|---------|-------------|\n| String | `'hello'` | Text values |\n| Number | `42` | Numeric values |\n| Boolean | `true` | True or false |\n| Null | `null` | Intentional empty value |\n| Undefined | `undefined` | Unassigned variable |\n\n## Type Checking\n\nUse `typeof` to check a value's type:\n\n```javascript\ntypeof 'hello'  // 'string'\ntypeof 42       // 'number'\ntypeof true     // 'boolean'\n```\n\n> **Tip:** Always use `const` by default, and only use `let` when you need to reassign a variable.",
+              "order": 1
+            },
+            {
+              "id": "i5",
+              "slug": "functions",
+              "title": "Functions",
+              "type": "text",
+              "content": "# Functions\n\nFunctions are reusable blocks of code that perform a specific task.\n\n## Function Declaration\n\n```javascript\nfunction greet(name) {\n    return `Hello, ${name}!`;\n}\n\ngreet('Alice'); // 'Hello, Alice!'\n```\n\n## Arrow Functions\n\nA shorter syntax for writing functions:\n\n```javascript\nconst add = (a, b) => a + b;\nconst square = x => x * x;\n```\n\n## Parameters and Arguments\n\nFunctions can have default parameters:\n\n```javascript\nfunction createUser(name, role = 'viewer') {\n    return { name, role };\n}\n\ncreateUser('Bob');           // { name: 'Bob', role: 'viewer' }\ncreateUser('Alice', 'admin'); // { name: 'Alice', role: 'admin' }\n```\n\n## Higher-Order Functions\n\nFunctions that take other functions as arguments:\n\n```javascript\nconst numbers = [1, 2, 3, 4, 5];\nconst doubled = numbers.map(n => n * 2);\n// [2, 4, 6, 8, 10]\n```",
+              "order": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
