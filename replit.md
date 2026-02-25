@@ -50,10 +50,19 @@ server/                    # Express server (dev/Replit only)
 
 ## API Endpoints
 
-- `GET /api/content` - Get all content
-- `PUT /api/content` - Update content (admin)
-- `GET /api/site` - Get site config
-- `PUT /api/site` - Update site config (admin)
+- `GET /api/content` - Get all content (public)
+- `PUT /api/content` - Update content (requires `Authorization: Bearer <SESSION_SECRET>`)
+- `GET /api/site` - Get site config (public)
+- `PUT /api/site` - Update site config (requires `Authorization: Bearer <SESSION_SECRET>`)
+- `POST /api/auth/login` - Verify admin password (accepts `{ password }` body)
+
+## Authentication
+
+- Admin panel at `#/admin` is gated behind a password login form
+- Password is the `SESSION_SECRET` environment variable
+- Token stored in `sessionStorage` (cleared on tab close or manual logout)
+- All PUT API routes require `Authorization: Bearer <token>` header
+- 401 responses trigger automatic logout and re-prompt
 
 ## Key Features
 
@@ -61,7 +70,7 @@ server/                    # Express server (dev/Replit only)
 - Progress tracking with visual progress bars
 - Previous/next navigation between items
 - Breadcrumb navigation with Schema.org markup
-- Admin panel with CRUD for topics, chapters, items (hidden URL)
+- Password-protected admin panel with CRUD for topics, chapters, items
 - 15 selectable icons for topics
 - YouTube URL auto-embedding for video/audio items
 - Import/export content as JSON

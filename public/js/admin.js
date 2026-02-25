@@ -1,4 +1,92 @@
 var Admin = (function () {
+    var _authToken = sessionStorage.getItem('admin_token') || '';
+
+    function getAuthHeaders() {
+        var headers = { 'Content-Type': 'application/json' };
+        if (_authToken) {
+            headers['Authorization'] = 'Bearer ' + _authToken;
+        }
+        return headers;
+    }
+
+    function isAuthenticated() {
+        return !!_authToken;
+    }
+
+    function handleAuthError() {
+        _authToken = '';
+        sessionStorage.removeItem('admin_token');
+        showToast('Sessao expirada. Faca login novamente.', true);
+        App.render();
+    }
+
+    function renderLoginForm(root) {
+        var html = '<div class="admin-login">';
+        html += '<div class="admin-login-card">';
+        html += '<div class="admin-login-icon">';
+        html += '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
+        html += '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>';
+        html += '<path d="M7 11V7a5 5 0 0 1 10 0v4"/>';
+        html += '</svg>';
+        html += '</div>';
+        html += '<h1>Acesso Administrativo</h1>';
+        html += '<p>Digite a senha para acessar o painel de administracao.</p>';
+        html += '<form id="admin-login-form">';
+        html += '<div class="form-group">';
+        html += '<label for="admin-password">Senha</label>';
+        html += '<input type="password" id="admin-password" name="password" required autocomplete="current-password" placeholder="Digite sua senha">';
+        html += '</div>';
+        html += '<div id="login-error" class="login-error" hidden></div>';
+        html += '<button type="submit" class="btn btn-primary" style="width:100%">Entrar</button>';
+        html += '</form>';
+        html += '</div>';
+        html += '</div>';
+        root.innerHTML = html;
+
+        var form = document.getElementById('admin-login-form');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var password = document.getElementById('admin-password').value;
+            var errorEl = document.getElementById('login-error');
+            var btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Verificando...';
+            errorEl.hidden = true;
+
+            fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: password })
+            }).then(function (res) {
+                if (!res.ok) {
+                    throw new Error('Senha incorreta');
+                }
+                _authToken = password;
+                sessionStorage.setItem('admin_token', password);
+                App.render();
+            }).catch(function (err) {
+                errorEl.textContent = err.message;
+                errorEl.hidden = false;
+                btn.disabled = false;
+                btn.textContent = 'Entrar';
+                document.getElementById('admin-password').value = '';
+                document.getElementById('admin-password').focus();
+            });
+        });
+
+        setTimeout(function () {
+            var input = document.getElementById('admin-password');
+            if (input) input.focus();
+        }, 50);
+    }
+
+    function logout() {
+        _authToken = '';
+        sessionStorage.removeItem('admin_token');
+        showToast('Sessao encerrada');
+        App.render();
+    }
+
     function generateId() {
         return 'id_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 6);
     }
@@ -8,6 +96,11 @@ var Admin = (function () {
     }
 
     function renderAdmin(root) {
+        if (!isAuthenticated()) {
+            renderLoginForm(root);
+            return;
+        }
+
         var content = ContentManager.getContent();
         if (!content) {
             root.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
@@ -23,6 +116,7 @@ var Admin = (function () {
         html += '<button class="btn btn-secondary" onclick="Admin.exportData()">Exportar JSON</button>';
         html += '<label class="btn btn-secondary" style="cursor:pointer">Importar JSON<input type="file" accept=".json" onchange="Admin.importData(event)" hidden></label>';
         html += '<button class="btn btn-primary" onclick="Admin.addTopic()">+ Novo Topico</button>';
+        html += '<button class="btn btn-danger" onclick="Admin.logout()" title="Sair do painel administrativo">Sair</button>';
         html += '</div>';
         html += '</div>';
 
@@ -140,16 +234,22 @@ var Admin = (function () {
         var content = ContentManager.getContent();
         return fetch('/api/content', {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify(content)
         }).then(function (res) {
+            if (res.status === 401) {
+                handleAuthError();
+                throw new Error('Nao autorizado');
+            }
             if (!res.ok) throw new Error('Falha ao salvar');
             showToast('Salvo com sucesso');
             return ContentManager.refreshData();
         }).then(function () {
             App.render();
         }).catch(function (err) {
-            showToast('Erro: ' + err.message, true);
+            if (err.message !== 'Nao autorizado') {
+                showToast('Erro: ' + err.message, true);
+            }
         });
     }
 
@@ -470,6 +570,7 @@ var Admin = (function () {
         deleteItem: deleteItem,
         exportData: exportData,
         importData: importData,
-        closeModal: closeModal
+        closeModal: closeModal,
+        logout: logout
     };
 })();
