@@ -1,6 +1,6 @@
 # Knowledge Hub CMS/LMS
 
-A lightweight, portable knowledge-sharing CMS/LMS built with vanilla HTML/CSS/JavaScript. No build step required. Deployable to GitHub Pages.
+A lightweight, portable knowledge-sharing CMS/LMS built with vanilla HTML/CSS/JavaScript. No build step required. Deployable to GitHub Pages. UI in Brazilian Portuguese.
 
 ## Architecture
 
@@ -10,34 +10,35 @@ A lightweight, portable knowledge-sharing CMS/LMS built with vanilla HTML/CSS/Ja
 - **Markdown Rendering**: CDN-hosted Marked.js + DOMPurify for XSS protection
 - **Progress Tracking**: localStorage
 - **SEO**: Semantic HTML, meta tags, JSON-LD structured data, Schema.org markup
+- **YouTube**: Auto-detects YouTube URLs in video/audio items and renders as responsive embeds
 
 ## Content Structure
 
 Topics -> Chapters -> Items (hierarchical, like an online course)
-- **Topics**: Top-level categories
+- **Topics**: Top-level categories (each with a selectable icon)
 - **Chapters**: Sections within a topic
 - **Items**: Individual content pieces (text/markdown, video, audio, image)
 
 ## File Structure
 
 ```
-public/                    # Static CMS (deployable to GitHub Pages as-is)
-  index.html              # Main SPA entry point
-  css/styles.css          # All styles with CSS custom properties + dark mode
+index.html                 # Main SPA entry point (root for GitHub Pages)
+public/
+  css/styles.css           # All styles with CSS custom properties + dark mode
   js/
-    app.js                # Router, page rendering, theme toggle
-    content.js            # Content loading/management
-    progress.js           # localStorage progress tracking
-    seo.js                # JSON-LD, meta tags, breadcrumbs
-    admin.js              # Admin CRUD interface
+    app.js                 # Router, page rendering, theme toggle, icon system
+    content.js             # Content loading/management
+    progress.js            # localStorage progress tracking
+    seo.js                 # JSON-LD, meta tags, breadcrumbs
+    admin.js               # Admin CRUD interface
   data/
-    site.json             # Site configuration
-    content.json          # All content (topics, chapters, items)
-  media/                  # Media files directory
+    site.json              # Site configuration
+    content.json           # All content (topics, chapters, items)
+  media/                   # Media files directory
 
-server/                   # Express server (dev/Replit only)
-  index.ts                # Server entry point, static file serving
-  routes.ts               # API routes (/api/content, /api/site)
+server/                    # Express server (dev/Replit only)
+  index.ts                 # Server entry point, serves root + public/ as static
+  routes.ts                # API routes (/api/content, /api/site)
 ```
 
 ## Routes (Hash-based)
@@ -45,7 +46,7 @@ server/                   # Express server (dev/Replit only)
 - `#/` - Home page (lists all topics)
 - `#/{topic-slug}` - Topic page (lists chapters and items)
 - `#/{topic}/{chapter}/{item}` - Item content page
-- `#/admin` - Admin panel
+- `#/admin` - Admin panel (hidden from nav, access via URL)
 
 ## API Endpoints
 
@@ -60,14 +61,17 @@ server/                   # Express server (dev/Replit only)
 - Progress tracking with visual progress bars
 - Previous/next navigation between items
 - Breadcrumb navigation with Schema.org markup
-- Admin panel with CRUD for topics, chapters, items
+- Admin panel with CRUD for topics, chapters, items (hidden URL)
+- 15 selectable icons for topics
+- YouTube URL auto-embedding for video/audio items
 - Import/export content as JSON
 - Responsive design
 - Accessible (skip links, ARIA roles, semantic HTML)
+- UI language: Brazilian Portuguese
 
 ## GitHub Pages Deployment
 
-The `public/` directory can be deployed directly to GitHub Pages with no build step.
+The repo root contains `index.html` which references assets in `public/`. Push the entire repo to GitHub and enable GitHub Pages from the root — no build step needed.
 
 ## Dependencies
 

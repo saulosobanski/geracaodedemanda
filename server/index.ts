@@ -65,11 +65,11 @@ app.use((req, res, next) => {
     return res.status(status).json({ message });
   });
 
-  const publicPath = path.resolve(import.meta.dirname, "..", "public");
-  app.use(express.static(publicPath));
+  const rootPath = path.resolve(import.meta.dirname, "..");
+  app.use(express.static(rootPath));
 
   app.use("/{*path}", (_req, res) => {
-    res.sendFile(path.resolve(publicPath, "index.html"));
+    res.sendFile(path.resolve(rootPath, "index.html"));
   });
 
   const port = parseInt(process.env.PORT || "5000", 10);

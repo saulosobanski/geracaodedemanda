@@ -7,8 +7,8 @@ var ContentManager = (function () {
         if (_loaded) return Promise.resolve({ site: _siteConfig, content: _content });
 
         return Promise.all([
-            fetch('data/site.json').then(function (r) { return r.json(); }),
-            fetch('data/content.json').then(function (r) { return r.json(); })
+            fetch('public/data/site.json').then(function (r) { return r.json(); }),
+            fetch('public/data/content.json').then(function (r) { return r.json(); })
         ]).then(function (results) {
             _siteConfig = results[0];
             _content = results[1];
