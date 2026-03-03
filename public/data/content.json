@@ -2,52 +2,35 @@
   "topics": [
     {
       "id": "t1",
-      "slug": "web-fundamentals",
-      "title": "Web Fundamentals",
-      "description": "Learn the core technologies that power the modern web, from HTML structure to CSS styling and JavaScript interactivity.",
-      "icon": "globe",
+      "slug": "marketing-operations-fundamentos",
+      "title": "Fundamentos de Marketing Operations",
+      "description": "Descubra o que é Marketing Operations (MarkOps), seu papel estratégico nas empresas e os princípios básicos que conectam marketing, vendas e tecnologia.",
+      "icon": "briefcase",
       "image": "",
       "order": 1,
       "chapters": [
         {
           "id": "c1",
-          "slug": "html-basics",
-          "title": "HTML Basics",
-          "description": "Understanding the building blocks of web pages with semantic HTML elements.",
+          "slug": "introducao-ao-markops",
+          "title": "Introdução ao MarkOps",
+          "description": "Compreendendo os pilares e o impacto das operações de marketing.",
           "order": 1,
           "items": [
             {
               "id": "i1",
-              "slug": "introduction-to-html",
-              "title": "Introduction to HTML",
+              "slug": "o-que-e-marketing-operations",
+              "title": "O que é Marketing Operations?",
               "type": "text",
-              "content": "# Introduction to HTML\n\nHTML (HyperText Markup Language) is the standard markup language for creating web pages. It describes the structure of a web page using a series of elements.\n\n## What You'll Learn\n\n- Basic HTML document structure\n- Common HTML elements\n- Semantic markup best practices\n\n## The Basic Structure\n\nEvery HTML document follows this basic structure:\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>My Page</title>\n</head>\n<body>\n    <h1>Hello, World!</h1>\n</body>\n</html>\n```\n\nThe `<!DOCTYPE html>` declaration tells the browser this is an HTML5 document. The `<html>` element is the root of the page, and `<head>` contains metadata while `<body>` contains the visible content.",
+              "content": "# O que é Marketing Operations?\n\nMarketing Operations (frequentemente abreviado como MarkOps) é a função responsável pelo planejamento estratégico, execução de processos, gestão de tecnologia e análise de dados dentro do departamento de marketing.\n\n## O que você vai aprender\n\n- A definição de MarkOps e sua evolução\n- O alinhamento entre Marketing e Vendas (Smarketing)\n- Os 3 pilares do MarkOps: Pessoas, Processos e Plataformas\n\n## O Papel do Profissional\n\nEnquanto os profissionais de marketing tradicionais focam na criação de campanhas e conteúdo, o time de MarkOps atua nos bastidores. Eles garantem que a infraestrutura tecnológica esteja funcionando, que os dados sejam precisos e que os processos fluam sem gargalos.\n\n> **Nota:** MarkOps transforma o marketing de um centro de custos focado apenas em criatividade para um gerador de receita baseado em dados e performance.",
               "order": 1
             },
             {
               "id": "i2",
-              "slug": "html-elements",
-              "title": "Common HTML Elements",
+              "slug": "processos-e-alinhamento",
+              "title": "Processos e Alinhamento",
               "type": "text",
-              "content": "# Common HTML Elements\n\nHTML provides a rich set of elements for structuring content.\n\n## Headings\n\nHTML offers six levels of headings, from `<h1>` (most important) to `<h6>` (least important).\n\n## Paragraphs and Text\n\nUse `<p>` for paragraphs, `<strong>` for bold emphasis, and `<em>` for italic emphasis.\n\n## Lists\n\n- **Ordered lists** (`<ol>`) for numbered items\n- **Unordered lists** (`<ul>`) for bullet points\n- **Description lists** (`<dl>`) for term-definition pairs\n\n## Links and Images\n\nLinks use the `<a>` element with an `href` attribute:\n\n```html\n<a href=\"https://example.com\">Visit Example</a>\n```\n\nImages use the self-closing `<img>` element:\n\n```html\n<img src=\"photo.jpg\" alt=\"A description of the photo\">\n```",
+              "content": "# Processos e Alinhamento\n\nUm dos maiores desafios do marketing moderno é garantir que os esforços não ocorram em silos. MarkOps é a ponte.\n\n## Smarketing: Vendas + Marketing\n\nO alinhamento entre vendas e marketing é essencial. MarkOps define as regras de transição de leads:\n\n1. **MQL (Marketing Qualified Lead):** Lead qualificado pelo marketing.\n2. **SAL (Sales Accepted Lead):** Lead aceito por vendas.\n3. **SQL (Sales Qualified Lead):** Lead qualificado por vendas e pronto para negociação.\n\n## Acordos de Nível de Serviço (SLA)\n\nUm SLA entre marketing e vendas estabelece metas claras e compartilhadas, definindo quantos leads o marketing precisa entregar e em quanto tempo vendas precisa contatá-los.",
               "order": 2
-            }
-          ]
-        },
-        {
-          "id": "c2",
-          "slug": "css-styling",
-          "title": "CSS Styling",
-          "description": "Learn how to style web pages with Cascading Style Sheets.",
-          "order": 2,
-          "items": [
-            {
-              "id": "i3",
-              "slug": "css-fundamentals",
-              "title": "CSS Fundamentals",
-              "type": "text",
-              "content": "# CSS Fundamentals\n\nCSS (Cascading Style Sheets) controls the visual presentation of HTML elements.\n\n## Selectors\n\nCSS selectors target HTML elements for styling:\n\n```css\n/* Element selector */\np { color: blue; }\n\n/* Class selector */\n.highlight { background: yellow; }\n\n/* ID selector */\n#header { font-size: 24px; }\n```\n\n## The Box Model\n\nEvery HTML element is a box consisting of:\n1. **Content** — the actual content\n2. **Padding** — space around the content\n3. **Border** — a border around the padding\n4. **Margin** — space outside the border\n\n## Colors and Typography\n\nCSS offers multiple ways to define colors: named colors, hex values, RGB, and HSL.\n\n```css\nbody {\n    font-family: 'Georgia', serif;\n    color: #333;\n    line-height: 1.6;\n}\n```",
-              "order": 1
             }
           ]
         }
@@ -55,34 +38,70 @@
     },
     {
       "id": "t2",
-      "slug": "javascript-essentials",
-      "title": "JavaScript Essentials",
-      "description": "Master the programming language of the web, from variables and functions to DOM manipulation and async programming.",
-      "icon": "code",
+      "slug": "implementacao-tecnologica",
+      "title": "Implementação e Martech",
+      "description": "Aprenda a estruturar processos escaláveis, escolher e integrar o ecossistema de ferramentas de marketing (Martech Stack).",
+      "icon": "tool",
       "image": "",
       "order": 2,
       "chapters": [
         {
-          "id": "c3",
-          "slug": "getting-started-with-js",
-          "title": "Getting Started with JavaScript",
-          "description": "Your first steps into JavaScript programming.",
+          "id": "c2",
+          "slug": "construindo-martech-stack",
+          "title": "Construindo o Martech Stack",
+          "description": "Como selecionar e gerenciar as tecnologias de marketing certas para o seu negócio.",
           "order": 1,
           "items": [
             {
-              "id": "i4",
-              "slug": "variables-and-types",
-              "title": "Variables and Data Types",
+              "id": "i3",
+              "slug": "arquitetura-martech",
+              "title": "A Arquitetura Martech",
               "type": "text",
-              "content": "# Variables and Data Types\n\nJavaScript variables are containers for storing data values.\n\n## Declaring Variables\n\n```javascript\nconst name = 'Alice';    // Cannot be reassigned\nlet age = 25;            // Can be reassigned\n```\n\n## Data Types\n\nJavaScript has several primitive data types:\n\n| Type | Example | Description |\n|------|---------|-------------|\n| String | `'hello'` | Text values |\n| Number | `42` | Numeric values |\n| Boolean | `true` | True or false |\n| Null | `null` | Intentional empty value |\n| Undefined | `undefined` | Unassigned variable |\n\n## Type Checking\n\nUse `typeof` to check a value's type:\n\n```javascript\ntypeof 'hello'  // 'string'\ntypeof 42       // 'number'\ntypeof true     // 'boolean'\n```\n\n> **Tip:** Always use `const` by default, and only use `let` when you need to reassign a variable.",
+              "content": "# A Arquitetura Martech\n\nO *Martech Stack* (Pilha de Tecnologia de Marketing) é a coleção de softwares utilizados para executar e otimizar as atividades de marketing.\n\n## Principais Categorias de Ferramentas\n\n| Categoria | Exemplo de Ferramenta | Propósito |\n|-----------|-----------------------|-----------|\n| **CRM** | Salesforce, HubSpot | Gestão do relacionamento com o cliente |\n| **Automação** | Marketo, ActiveCampaign | Nutrição de leads e e-mail marketing |\n| **CMS** | WordPress, Webflow | Gestão de conteúdo do site |\n| **Analytics** | Google Analytics 4 | Análise de tráfego e comportamento |\n\n## Boas Práticas de Implementação\n\nAo adicionar uma nova ferramenta ao stack, o profissional de MarkOps deve avaliar:\n- A ferramenta integra nativamente com o CRM existente?\n- Existe sobreposição de funcionalidades com outra ferramenta que já pagamos?\n- Qual é o custo de treinamento da equipe?",
               "order": 1
             },
             {
-              "id": "i5",
-              "slug": "functions",
-              "title": "Functions",
+              "id": "i4",
+              "slug": "higiene-de-dados",
+              "title": "Higiene e Governança de Dados",
               "type": "text",
-              "content": "# Functions\n\nFunctions are reusable blocks of code that perform a specific task.\n\n## Function Declaration\n\n```javascript\nfunction greet(name) {\n    return `Hello, ${name}!`;\n}\n\ngreet('Alice'); // 'Hello, Alice!'\n```\n\n## Arrow Functions\n\nA shorter syntax for writing functions:\n\n```javascript\nconst add = (a, b) => a + b;\nconst square = x => x * x;\n```\n\n## Parameters and Arguments\n\nFunctions can have default parameters:\n\n```javascript\nfunction createUser(name, role = 'viewer') {\n    return { name, role };\n}\n\ncreateUser('Bob');           // { name: 'Bob', role: 'viewer' }\ncreateUser('Alice', 'admin'); // { name: 'Alice', role: 'admin' }\n```\n\n## Higher-Order Functions\n\nFunctions that take other functions as arguments:\n\n```javascript\nconst numbers = [1, 2, 3, 4, 5];\nconst doubled = numbers.map(n => n * 2);\n// [2, 4, 6, 8, 10]\n```",
+              "content": "# Higiene e Governança de Dados\n\nUma ferramenta é tão boa quanto os dados que a alimentam.\n\n## O Problema do \"Lixo entra, Lixo sai\"\n\nSe a sua automação de marketing está cheia de contatos duplicados, e-mails falsos ou informações desatualizadas, o ROI das suas campanhas vai despencar.\n\n## Práticas de Governança\n\n- **Padronização:** Criar regras claras para campos de formulários (ex: estado como \"SP\" em vez de \"São Paulo\").\n- **Enriquecimento de Dados:** Usar ferramentas terceiras para complementar o perfil do lead.\n- **LGPD/GDPR:** Garantir que o consentimento (opt-in) de comunicação esteja sendo rigorosamente rastreado e respeitado.",
+              "order": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t3",
+      "slug": "monitoramento-analytics",
+      "title": "Monitoramento e Analytics",
+      "description": "Domine o acompanhamento de métricas de sucesso, a criação de dashboards executivos e a cultura de testes contínuos.",
+      "icon": "activity",
+      "image": "",
+      "order": 3,
+      "chapters": [
+        {
+          "id": "c3",
+          "slug": "metricas-e-relatorios",
+          "title": "Métricas e Relatórios",
+          "description": "Como provar o ROI do marketing através de dados confiáveis.",
+          "order": 1,
+          "items": [
+            {
+              "id": "i5",
+              "slug": "kpis-essenciais",
+              "title": "Definindo KPIs Essenciais",
+              "type": "text",
+              "content": "# Definindo KPIs Essenciais\n\nIndicadores-Chave de Performance (KPIs) ajudam a medir a eficácia das iniciativas de marketing.\n\n## Métricas de Negócio vs. Métricas de Vaidade\n\nMétricas de vaidade (como curtidas em uma foto) parecem boas no papel, mas raramente movem o ponteiro do negócio. MarkOps foca em métricas de negócio:\n\n```text\n1. CAC (Custo de Aquisição de Clientes)\n2. LTV (Lifetime Value - Valor do Tempo de Vida do Cliente)\n3. ROI (Retorno sobre Investimento)\n4. Taxa de Conversão de MQL para SQL\n```\n\n## Modelos de Atribuição\n\nEntender qual canal de marketing trouxe a venda. Pode ser *First-touch* (primeiro toque), *Last-touch* (último toque), ou modelos *Multi-touch* (distribuem o crédito pelos vários canais com os quais o cliente interagiu).",
+              "order": 1
+            },
+            {
+              "id": "i6",
+              "slug": "dashboards-e-otimizacao",
+              "title": "Dashboards e Otimização (CRO)",
+              "type": "text",
+              "content": "# Dashboards e Otimização\n\nDados brutos não tomam decisões; visualizações claras sim.\n\n## Criando Dashboards Executivos\n\nUm bom dashboard deve contar uma história. Diretores (C-Level) não querem ver tabelas intermináveis; eles querem saber:\n- Quanto gastamos?\n- Quanto retorno tivemos?\n- Estamos dentro da meta do mês?\n\nFerramentas comuns incluem **Looker Studio**, **Power BI** e os painéis nativos de CRMs (como os relatórios do HubSpot).\n\n## CRO e Testes A/B\n\nA Otimização da Taxa de Conversão (CRO) é o processo de melhorar sistematicamente o desempenho de páginas e e-mails. \n\n* **Teste A/B:** Criar duas versões de uma página, mudando apenas um elemento (como o texto do botão), para descobrir estatisticamente qual converte mais.",
               "order": 2
             }
           ]
